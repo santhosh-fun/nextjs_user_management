@@ -9,7 +9,7 @@ COPY . .
 
 # Generate Prisma client and run migration and seed
 RUN npx prisma generate
-RUN npx prisma migrate deploy
+# RUN npx prisma migrate deploy
 # RUN npx ts-node prisma/seed.ts  
 # Run the seed script
 
