@@ -1,0 +1,175 @@
+// Define your Prisma client
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Define your datasource
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Organization Table
+model Organization {
+  id          Int      @id @default(autoincrement())
+  name        String   @unique
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  departments Department[]
+  teams       Team[]
+  users       User[]
+
+  @@map("organizations")
+}
+
+// Department Table
+model Department {
+  id             Int     @id @default(autoincrement())
+  name           String
+  description    String?
+  organizationId Int
+
+  // Relations
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  users          User[]
+  parentId       Int?
+  parent         Department?  @relation("DepartmentHierarchy", fields: [parentId], references: [id])
+  subDepartments Department[] @relation("DepartmentHierarchy")
+
+  @@unique([name, organizationId]) // Each department name should be unique within an organization
+  @@map("departments")
+}
+
+// Team Table
+model Team {
+  id             Int     @id @default(autoincrement())
+  name           String
+  description    String?
+  organizationId Int
+
+  // Relations
+  organization Organization @relation(fields: [organizationId], references: [id])
+  users        User[]
+
+  @@unique([name, organizationId]) // Each team name should be unique within an organization
+  @@map("teams")
+}
+
+// Position Table
+model Position {
+  id          Int     @id @default(autoincrement())
+  title       String  @unique
+  description String?
+
+  // Relations
+  users User[]
+
+  @@map("positions")
+}
+
+// User Table
+model User {
+  id             Int      @id @default(autoincrement())
+  email          String   @unique
+  password       String
+  firstName      String
+  lastName       String
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  roleId         Int
+  departmentId   Int?
+  organizationId Int
+  teamId         Int?
+  positionId     Int?
+
+  // Relations
+  role         Role         @relation(fields: [roleId], references: [id])
+  department   Department?  @relation(fields: [departmentId], references: [id])
+  organization Organization @relation(fields: [organizationId], references: [id])
+  team         Team?        @relation(fields: [teamId], references: [id])
+  position     Position?    @relation(fields: [positionId], references: [id])
+  userProfile  UserProfile?
+  permissions  Permission[] @relation("UserPermissions")
+  sessions     Session[]
+  AuditLog     AuditLog[]
+
+  @@index([email])
+  @@map("users")
+}
+
+// Role Table
+model Role {
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
+  description String?
+
+  // Relations
+  users       User[]
+  permissions Permission[] @relation("RolePermissions")
+
+  @@map("roles")
+}
+
+// Permission Table
+model Permission {
+  id          Int     @id @default(autoincrement())
+  name        String  @unique
+  description String?
+
+  // Relations
+  roles Role[] @relation("RolePermissions")
+  users User[] @relation("UserPermissions")
+
+  @@map("permissions")
+}
+
+// User Profile Table
+model UserProfile {
+  id          Int     @id @default(autoincrement())
+  bio         String?
+  profilePic  String?
+  phoneNumber String?
+  userId      Int     @unique
+
+  // Relations
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("user_profiles")
+}
+
+// Session Table for User Sessions (e.g., for tracking login sessions)
+model Session {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  userId    Int
+  createdAt DateTime @default(now())
+  expiresAt DateTime
+
+  // Relations
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("sessions")
+}
+
+// Audit Log Table for tracking actions within the system
+model AuditLog {
+  id        Int      @id @default(autoincrement())
+  action    String
+  userId    Int?
+  entity    String
+  entityId  Int?
+  timestamp DateTime @default(now())
+
+  // Relations
+  user User? @relation(fields: [userId], references: [id])
+
+  @@map("audit_logs")
+}
+
+// Many-to-Many Relations
+// - User <-> Permission: Users may have direct permissions in addition to role-based permissions.
+// - Role <-> Permission: Roles can have multiple permissions, and permissions can be assigned to multiple roles.

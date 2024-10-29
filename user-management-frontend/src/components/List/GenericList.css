@@ -1,0 +1,53 @@
+.table-container {
+  overflow-x: auto;
+  padding: 1rem;
+}
+
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+}
+
+.custom-table th,
+.custom-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.custom-table th {
+  background-color: #f1f1f1;
+  color: #333;
+  font-weight: bold;
+}
+
+.custom-table tr:hover {
+  background-color: #f5f5f5;
+}
+
+.action-button {
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  margin: 0 4px;
+}
+
+.edit-button {
+  color: #4caf50;
+}
+
+.delete-button {
+  color: #f44336;
+}
+
+@media (max-width: 600px) {
+  .custom-table,
+  .custom-table th,
+  .custom-table td {
+    font-size: 0.9em;
+  }
+}
