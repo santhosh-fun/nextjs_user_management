@@ -1,0 +1,12 @@
+version: "3"
+services:
+  frontend:
+    build: ./user-management-frontend
+    ports:
+      - "8080:80"
+  backend:
+    build: ./user-management-backend
+    environment:
+      DATABASE_URL: "postgresql://user_management_owner:uUePx10rBHyC@ep-weathered-wind-a1030s2o-pooler.ap-southeast-1.aws.neon.tech/user_management?sslmode=require"
+    ports:
+      - "3303:3303"
