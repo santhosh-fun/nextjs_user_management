@@ -3,7 +3,7 @@ services:
   frontend:
     build: ./user-management-frontend
     ports:
-      - "8080:80"
+      - "8808:80"
   backend:
     build: ./user-management-backend
     environment:
