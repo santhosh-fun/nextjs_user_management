@@ -43,7 +43,9 @@ docker-compose up --build
 This will build the Docker images and start the containers for both frontend and backend applications.
 
 2. **Application Access**
+
    Backend API: Accessible at http://localhost:3303/
+
    Frontend Application: Accessible at http://localhost:8808/
 
 **Login Credentials**
