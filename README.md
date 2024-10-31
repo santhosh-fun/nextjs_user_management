@@ -49,18 +49,23 @@ This will build the Docker images and start the containers for both frontend and
    Frontend Application: Accessible at http://localhost:8808/
 
 **Login Credentials**
+
 To access the application, use the following credentials:
 
 Username: admin
+
 Password: password123
 
 **Troubleshooting**
 
 Port Conflicts
+
 If you encounter issues with ports already in use (default: 3303 for backend, 8808 for frontend), follow these steps:
 
 Open the docker-compose.yml file in the root directory and change the port mappings to available ports.
+
 Update the backend configuration in user-management-backend/src/main.ts:
 
 await app.listen(process.env.PORT ?? 3303); // Change to the updated port
+
 origin: // add the host
