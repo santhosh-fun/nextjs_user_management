@@ -1,5 +1,13 @@
 // src/user/user.controller.ts
-import { Controller, Get, Post, Put, Delete, Param, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Put,
+  Delete,
+  Param,
+  Body,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { User as UserModel } from '@prisma/client';
 
@@ -9,14 +17,15 @@ export class UserController {
 
   @Post()
   async createUser(
-    @Body() userData: {
+    @Body()
+    userData: {
       email: string;
       password: string;
       firstName: string;
       lastName: string;
-      roleId: number;            // ID for the user's role
-      organizationId: number;     // ID for the user's organization
-    }
+      roleId: number; // ID for the user's role
+      organizationId: number; // ID for the user's organization
+    },
   ): Promise<UserModel> {
     return this.userService.createUser(userData);
   }
@@ -32,7 +41,10 @@ export class UserController {
   }
 
   @Put(':id')
-  async updateUser(@Param('id') id: string, @Body() userData: { email?: string; password?: string }): Promise<UserModel> {
+  async updateUser(
+    @Param('id') id: string,
+    @Body() userData: { email?: string; password?: string },
+  ): Promise<UserModel> {
     return this.userService.updateUser(Number(id), userData);
   }
 
@@ -42,22 +54,37 @@ export class UserController {
   }
 
   @Put(':userId/role/:roleId')
-  async assignRole(@Param('userId') userId: string, @Param('roleId') roleId: string): Promise<UserModel> {
+  async assignRole(
+    @Param('userId') userId: string,
+    @Param('roleId') roleId: string,
+  ): Promise<UserModel> {
     return this.userService.assignRole(Number(userId), Number(roleId));
   }
 
   @Put(':userId/position/:positionId')
-  async assignPosition(@Param('userId') userId: string, @Param('positionId') positionId: string): Promise<UserModel> {
+  async assignPosition(
+    @Param('userId') userId: string,
+    @Param('positionId') positionId: string,
+  ): Promise<UserModel> {
     return this.userService.assignPosition(Number(userId), Number(positionId));
   }
 
   @Put(':userId/department/:departmentId')
-  async assignDepartment(@Param('userId') userId: string, @Param('departmentId') departmentId: string): Promise<UserModel> {
-    return this.userService.assignDepartment(Number(userId), Number(departmentId));
+  async assignDepartment(
+    @Param('userId') userId: string,
+    @Param('departmentId') departmentId: string,
+  ): Promise<UserModel> {
+    return this.userService.assignDepartment(
+      Number(userId),
+      Number(departmentId),
+    );
   }
 
   @Put(':userId/team/:teamId')
-  async assignTeam(@Param('userId') userId: string, @Param('teamId') teamId: string): Promise<UserModel> {
+  async assignTeam(
+    @Param('userId') userId: string,
+    @Param('teamId') teamId: string,
+  ): Promise<UserModel> {
     return this.userService.assignTeam(Number(userId), Number(teamId));
   }
 }

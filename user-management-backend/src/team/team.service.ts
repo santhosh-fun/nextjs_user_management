@@ -6,7 +6,11 @@ import { Team } from '@prisma/client';
 export class TeamService {
   constructor(private readonly prisma: PrismaService) {}
 
-  async create(data: { name: string; description?: string; organizationId: number }): Promise<Team> {
+  async create(data: {
+    name: string;
+    description?: string;
+    organizationId: number;
+  }): Promise<Team> {
     return this.prisma.team.create({ data });
   }
 
@@ -18,7 +22,11 @@ export class TeamService {
     return this.prisma.team.findUnique({ where: { id } });
   }
 
-  async update(id: number, data: { name?: string; description?: string }): Promise<Team> {
+  async update(
+    id: number,
+    data: { name?: string; description?: string },
+  ): Promise<Team> {
+    console.log('updateupdate', id, data);
     return this.prisma.team.update({ where: { id }, data });
   }
 

@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./HomeScreen.css";
 import MainLayout from "../../layout/MainLayout";
 import { ManagementCard } from "./types";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../config/routes";
 import { FaUser, FaUsers, FaBriefcase, FaBuilding } from "react-icons/fa";
+import useFetchAllData from "../../hooks/useFetchAllData";
 
 // Define the management cards with fallback icons as component references
 const managementCards: ManagementCard[] = [
@@ -36,10 +37,28 @@ const managementCards: ManagementCard[] = [
     route: routes.department,
     fallbackIcon: FaBuilding,
   },
+  {
+    title: "Manage Role",
+    description: "Create modify role",
+    iconUrl: "/icons/role.png",
+    route: routes.role,
+    fallbackIcon: FaUsers,
+  },
+  {
+    title: "Manage Organization",
+    description: "Create modify organization",
+    iconUrl: "/icons/role.png",
+    route: routes.organization,
+    fallbackIcon: FaUsers,
+  },
 ];
 
 const HomeScreen: React.FC = () => {
   const navigate = useNavigate();
+  const fetchData = useFetchAllData();
+  useEffect(() => {
+    fetchData(); // Call the fetch function inside useEffect
+  }, [fetchData]);
 
   // State to track image load errors for each card
   const [imageErrors, setImageErrors] = useState<boolean[]>(

@@ -13,4 +13,5 @@ export const routes = {
   department: "/departments",
   organization: "/organization",
   position: "/positions",
+  role: "/roles",
 };

@@ -15,7 +15,8 @@ export class UserService {
     roleId: number;
     organizationId: number;
   }): Promise<User> {
-    const { email, password, firstName, lastName, roleId, organizationId } = data;
+    const { email, password, firstName, lastName, roleId, organizationId } =
+      data;
 
     return this.prisma.user.create({
       data: {
@@ -24,16 +25,17 @@ export class UserService {
         firstName,
         lastName,
         role: {
-          connect: { id: roleId },           // Connects user to the specified role by ID
+          connect: { id: Number(roleId) }, // Connects user to the specified role by ID
         },
         organization: {
-          connect: { id: organizationId },    // Connects user to the specified organization by ID
+          connect: { id: Number(organizationId) }, // Connects user to the specified organization by ID
         },
       },
     });
   }
 
-  async getUsers(): Promise<User[]> { // New method to fetch all users
+  async getUsers(): Promise<User[]> {
+    // New method to fetch all users
     return this.prisma.user.findMany(); // Use Prisma to fetch all users
   }
 

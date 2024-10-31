@@ -1,4 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
+import { Provider } from "react-redux";
+import { store, persistor } from "./state/store";
+import AppRouter from "./navigation/AppRouter";
+import { PersistGate } from "redux-persist/integration/react";
 
 // Define the User type
 type User = {
@@ -18,30 +22,13 @@ type User = {
 };
 
 function App() {
-  const [users, setUsers] = useState<User[]>([]);  // Specify User[] as the type
-
-  useEffect(() => {
-    fetch('http://localhost:3303/users')  // assuming the API is running on port 3303
-      .then((res) => res.json())
-      .then((data) => setUsers(data))
-      .catch((error) => console.error("Error fetching users:", error));
-  }, []);
-
-  if (users.length > 0) {
-    console.log("users", users);
-    return (
-      <div>
-        <h1>User List</h1>
-        <ul>
-          {users.map((user) => (
-            <li key={user.id}>{user.email}</li>
-          ))}
-        </ul>
-      </div>
-    );
-  }
-
-  return <></>;  // Render nothing if users list is empty
+  return (
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <AppRouter />
+      </PersistGate>
+    </Provider>
+  );
 }
 
 export default App;

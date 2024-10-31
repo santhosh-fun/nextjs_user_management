@@ -37,8 +37,8 @@ const useTeamApi = () => {
   const fetchUserTeam = useCallback(async (userId: number) => {
     setLoading(true);
     try {
-      const response = await api.get<ApiResponse<Team>>(`/teams/${userId}`);
-      setTeam(response.data.data);
+      const response = await api.get<Team>(`/teams/${userId}`);
+      setTeam(response.data);
     } catch (err: any) {
       setError(err.response?.data?.message || "Error fetching team data");
     } finally {
@@ -48,11 +48,11 @@ const useTeamApi = () => {
 
   // Update the user's team
   const updateUserTeam = useCallback(
-    async (userId: number, teamData: Partial<Team>) => {
+    async (teamId: number, teamData: Partial<Team>) => {
       setLoading(true);
       try {
         const response = await api.put<ApiResponse<Team>>(
-          `/team/${userId}`,
+          `/team/${teamId}`,
           teamData
         );
         setTeam(response.data.data);
@@ -69,8 +69,8 @@ const useTeamApi = () => {
   const createTeam = useCallback(async (teamData: Partial<Team>) => {
     setLoading(true);
     try {
-      const response = await api.post<ApiResponse<Team>>("/teams", teamData);
-      setTeam(response.data.data);
+      const response = await api.post<Team>("/teams", teamData);
+      setTeam(response.data);
     } catch (err: any) {
       setError(err.response?.data?.message || "Error creating team");
     } finally {

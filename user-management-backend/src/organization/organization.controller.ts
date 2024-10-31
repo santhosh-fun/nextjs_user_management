@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Param, Body, Put, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Param,
+  Body,
+  Put,
+  Delete,
+} from '@nestjs/common';
 import { OrganizationService } from './organization.service';
 
 @Controller('organizations')
@@ -17,16 +25,19 @@ export class OrganizationController {
 
   @Get(':id')
   async findOne(@Param('id') id: number) {
-    return this.organizationService.findOne(id);
+    return this.organizationService.findOne(Number(id));
   }
 
   @Put(':id')
-  async update(@Param('id') id: number, @Body() data: { name?: string; description?: string }) {
-    return this.organizationService.update(id, data);
+  async update(
+    @Param('id') id: number,
+    @Body() data: { name?: string; description?: string },
+  ) {
+    return this.organizationService.update(Number(id), data);
   }
 
   @Delete(':id')
   async delete(@Param('id') id: number) {
-    return this.organizationService.delete(id);
+    return this.organizationService.delete(Number(id));
   }
 }

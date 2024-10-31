@@ -9,11 +9,12 @@ import { routes } from "../config/routes";
 import LoginScreen from "../features/auth/LoginScreen";
 import HomeScreen from "../features/home/HomeScreen";
 import UserListScreen from "../features/user/UserListScreen";
-// import { UserAddScreen } from "../features/user/UserAddScreen";
-// import { UserUpdateScreen } from "../features/user/UserUpdateScreen";
 import TeamListScreen from "../features/team/TeamListScreen";
-// import { TeamCreateScreen } from "../features/team/TeamCreateScreen";
 import ProtectedRoute from "./ProtectedRoute";
+import PositionScreen from "../features/position/PositionScreen";
+import OrganizationScreen from "../features/organization/OrganizationScreen";
+import DepartmentListScreen from "../features/department/DepartmentListScreen";
+import RoleListScreen from "../features/role/RoleListScreen";
 
 const AppRouter = () => (
   <Router>
@@ -26,17 +27,10 @@ const AppRouter = () => (
         <Route path={routes.home} element={<HomeScreen />} />
         <Route path={routes.team.list} element={<TeamListScreen />} />
         <Route path={routes.user.list} element={<UserListScreen />} />
-        {/* 
-        <Route path={routes.user.add} element={<UserAddScreen />} />
-        <Route
-          path={routes.user.update(":id")}
-          element={<UserUpdateScreen />}
-        />
-        <Route path={routes.team.list} element={<TeamListScreen />} />
-        <Route path={routes.team.create} element={<TeamCreateScreen />} />
-        <Route path={routes.department} element={<DepartmentScreen />} />
+        <Route path={routes.role} element={<RoleListScreen />} />
+        <Route path={routes.department} element={<DepartmentListScreen />} />
         <Route path={routes.organization} element={<OrganizationScreen />} />
-        <Route path={routes.position} element={<PositionScreen />} /> */}
+        <Route path={routes.position} element={<PositionScreen />} />
       </Route>
 
       {/* Redirect unknown routes */}

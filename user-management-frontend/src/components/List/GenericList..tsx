@@ -15,8 +15,8 @@ type ListItem = {
   team?: string;
   position?: string;
   createdAt?: Date;
-  onDelete?: (id: number) => void;
-  onEdit?: (id: number) => void;
+  onDelete?: (item: ListItem) => void; // Updated to accept item
+  onEdit?: (item: ListItem) => void; // Updated to accept item
 };
 
 interface GenericListProps {
@@ -63,13 +63,13 @@ const GenericList: React.FC<GenericListProps> = ({ items = [] }) => {
               ))}
               <td>
                 <button
-                  onClick={() => item.onEdit && item.onEdit(item.id)}
+                  onClick={() => item.onEdit && item.onEdit(item)} // Pass the full item
                   className="action-button edit-button"
                 >
                   ✏️
                 </button>
                 <button
-                  onClick={() => item.onDelete && item.onDelete(item.id)}
+                  onClick={() => item.onDelete && item.onDelete(item)} // Pass the full item
                   className="action-button delete-button"
                 >
                   🗑️
