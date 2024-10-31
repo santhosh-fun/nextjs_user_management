@@ -28,20 +28,23 @@ To run this project, ensure you have the following installed:
    Navigate into the Project Directory
    ```
 
-````bash
+```bash
 cd user_management
+```
+
 Build and Run the Docker Containers
 
 Inside the project directory, run the following command:
 
 ```bash
 docker-compose up --build
+```
+
 This will build the Docker images and start the containers for both frontend and backend applications.
 
-
 2. **Application Access**
-Backend API: Accessible at http://localhost:3303/
-Frontend Application: Accessible at http://localhost:8808/
+   Backend API: Accessible at http://localhost:3303/
+   Frontend Application: Accessible at http://localhost:8808/
 
 **Login Credentials**
 To access the application, use the following credentials:
@@ -59,4 +62,3 @@ Update the backend configuration in user-management-backend/src/main.ts:
 
 await app.listen(process.env.PORT ?? 3303); // Change to the updated port
 origin: // add the host
-````
