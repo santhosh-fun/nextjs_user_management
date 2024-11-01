@@ -46,6 +46,8 @@ This will build the Docker images and start the containers for both frontend and
 
    Backend API: Accessible at http://localhost:3303/
 
+   API : http://localhost:3303/api
+
    Frontend Application: Accessible at http://localhost:8808/
 
 **Login Credentials**
